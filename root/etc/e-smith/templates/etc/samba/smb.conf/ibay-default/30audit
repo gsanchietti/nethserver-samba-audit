@@ -1,0 +1,6 @@
+{
+    $OUT = "";
+    return unless (($ibay{'SmbAuditStatus'} || 'disabled') eq 'enabled');
+
+    $ibay_vfs->{full_audit} = "";
+}

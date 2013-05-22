@@ -1,0 +1,7 @@
+# SambaAudit configuration
+full_audit:prefix = smbauditlog|%T|%u|%I|%S|%U
+full_audit:success = read write open unlink mkdir rmdir rename chmod 
+full_audit:failure = read write open unlink mkdir rmdir rename chmod  
+full_audit:facility = LOCAL7
+full_audit:priority = INFO
+

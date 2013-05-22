@@ -1,0 +1,10 @@
+/var/log/smbaudit.log {
+    rotate 5
+    daily
+    notifempty
+    copytruncate
+    create 640 root root
+    prerotate
+                /usr/local/bin/smbauditdbupdate.pl
+    endscript
+}

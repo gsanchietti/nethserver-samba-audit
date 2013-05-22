@@ -1,0 +1,45 @@
+Summary: Enable audit on samba shared 
+Name: nethserver-samba-audit
+Version: @@VERSION@@
+Release: @@RELEASE@@
+License: GPLv2
+Group: Networking/Daemons
+Source: %{name}-%{version}.tar.gz
+Packager: Giacomo Sanchietti <giacomo@nethesis.it>
+BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
+BuildArch: noarch 
+Requires: nethserver-ibays, nethserver-httpd, php-mysql
+BuildRequires: nethserver-devtools
+AutoReq: no
+
+%description
+Enable audit on samba shared and browse log using a simple web interface.
+
+
+%prep
+%setup
+
+%build
+perl createlinks
+
+
+%install
+rm -rf $RPM_BUILD_ROOT
+(cd root ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
+/sbin/e-smith/genfilelist --file /usr/local/bin/smbauditrotate.pl 'attr(4755,root,root)' --file /usr/local/bin/smbauditdbupdate.pl 'attr(0700,root,root)' $RPM_BUILD_ROOT > %{name}-%{version}-filelist
+
+%clean 
+rm -rf $RPM_BUILD_ROOT
+
+%pre
+
+%preun
+
+%post
+
+%postun
+
+%files -f %{name}-%{version}-filelist
+%defattr(-,root,root)
+
+%changelog

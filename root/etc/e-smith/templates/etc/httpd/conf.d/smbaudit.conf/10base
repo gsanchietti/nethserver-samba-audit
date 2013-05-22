@@ -1,0 +1,28 @@
+{
+    use esmith::ConfigDB;
+    my $confdb = esmith::ConfigDB->open;
+
+    my $alias = $smb{'AuditAlias'} || "";
+    
+    # initialize alias if needed
+    if ($alias eq "") {
+        $alias = esmith::util::genRandomHash();
+        $confdb->set_prop('smb','AuditAlias',$alias);
+    }
+
+    $OUT = "
+
+Alias /$alias  /var/www/html/smbaudit 
+
+<Directory /var/www/html/smbaudit>
+    AllowOverride none
+    Options +Indexes
+    order deny,allow
+    deny from all
+    allow from all
+    AddType application/x-httpd-php .php .php3
+    Allow from $localAccess
+</Directory>
+";
+}
+

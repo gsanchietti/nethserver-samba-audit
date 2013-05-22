@@ -1,0 +1,17 @@
+#!/usr/bin/perl -w
+
+package esmith;
+
+use strict;
+use Errno;
+use esmith::templates;
+use esmith::util;
+use esmith::AccountsDB;
+
+# sql symlink
+symlink "/var/www/html/smbaudit/sql/smbaudit.sql",
+    "/etc/e-smith/sql/init/10smbaudit.sql";
+
+system ("/sbin/service mysql.init start"); 
+
+exit (0);
