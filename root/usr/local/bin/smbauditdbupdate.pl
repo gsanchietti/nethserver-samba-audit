@@ -3,10 +3,10 @@ use DBI;
 use warnings;
 use strict;
 
-my $username = "root";
-my $password = `cat /etc/my.pwd`;
+my $username = "smbd";
+my $password = "smbpass";
 $password =~ s/\n//g;
-my $dsn = "dbi:mysql:smbd:localhost";
+my $dsn = "dbi:mysql:smbaudit:localhost";
 my $dbh = DBI->connect($dsn,$username,$password) or die "Cannot connect to database: $DBI::errstr";
 
 my $LOGFILE='/var/log/smbaudit.log';
