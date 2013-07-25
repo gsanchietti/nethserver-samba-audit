@@ -12,9 +12,9 @@
 
     $OUT = "
 
-Alias /$alias  /var/www/html/smbaudit 
+Alias /$alias  /usr/share/smbaudit 
 
-<Directory /var/www/html/smbaudit>
+<Directory /usr/share/smbaudit>
     AllowOverride none
     Options +Indexes
     order deny,allow

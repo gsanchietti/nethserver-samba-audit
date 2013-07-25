@@ -41,7 +41,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}-%{version}-filelist
 %defattr(-,root,root)
-%config(/var/log/smbaudit.log)
+%config /var/log/smbaudit.log
 
 %changelog
 * Fri Jun 21 2013 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.0-1.ns6
