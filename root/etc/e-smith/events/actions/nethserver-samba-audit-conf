@@ -7,6 +7,18 @@ use Errno;
 use esmith::templates;
 use esmith::util;
 use esmith::AccountsDB;
+use esmith::ConfigDB;
+
+my $confdb = esmith::ConfigDB->open;
+my $smb = $confdb->get('smb');
+my $alias = $smb->prop('AuditAlias') || "";
+
+# initialize alias if needed
+if ($alias eq "") {
+    $alias = esmith::util::genRandomHash();
+    $confdb->set_prop('smb','AuditAlias',$alias);
+}
+
 
 # sql symlink
 symlink "/usr/share/smbaudit/sql/smbaudit.sql",
