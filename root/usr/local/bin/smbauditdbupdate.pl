@@ -30,10 +30,8 @@ while (<FILE>) {
                 {
                 ($TAG,$DATE,$USER,$IP,$SHAREPATH,$USER2,$OPERATION,$RESULT,$MODE,$ARG) = split (/\|/, $_);
                 $ARG =~ s/\n//g unless !defined($ARG);
-                @SHARE = split (/\//,$SHAREPATH);
-	 	
-		$sth = $dbh->prepare("INSERT INTO audit SET `when`=?,share=?,ip=?,unix_name=?,connectpath=?,sanitized_username=?,op=?,result=?,mode=?,arg=?");
-		$sth->execute($DATE,$SHARE[5],$IP,$USER,$SHAREPATH,$USER2,$OPERATION,$RESULT,$MODE,$ARG) or die "Cannot execute sth: $DBI::errstr";
+		$sth = $dbh->prepare("INSERT INTO audit SET `when`=?,share=?,ip=?,user=?,op=?,result=?,arg=?");
+		$sth->execute($DATE,$SHAREPATH,$IP,$USER,$OPERATION,$RESULT,$ARG) or die "Cannot execute sth: $DBI::errstr";
                 }
 }
 
