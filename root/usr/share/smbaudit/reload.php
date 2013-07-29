@@ -1,5 +1,5 @@
 <?php 
-system ("/usr/local/bin/smbauditrotate.pl");
+system ("/usr/bin/smbauditrotate.pl");
 header("Location: index.php");
 ?>
 

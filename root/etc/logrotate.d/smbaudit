@@ -5,6 +5,6 @@
     copytruncate
     create 640 root root
     prerotate
-                /usr/local/bin/smbauditdbupdate.pl
+                /usr/bin/smbauditdbupdate.pl
     endscript
 }
