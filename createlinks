@@ -10,7 +10,7 @@ my $event = "nethserver-samba-audit-update";
 
 event_actions($event, qw(
       initialize-default-databases 00
-      nethserver-samba-audit-conf 10
+      nethserver-samba-audit-conf 02
 ));
 
 event_templates($event, qw(
