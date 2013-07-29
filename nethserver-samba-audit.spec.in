@@ -45,6 +45,10 @@ rm -rf $RPM_BUILD_ROOT
 %config /var/log/smbaudit.log
 
 %changelog
+* Mon Jul 29 2013 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.2-1.ns6
+- Wxecute nethserver-samba-audit-conf action before expand-template #1963
+- Add nethserver-mysql and nethserver-samba dependencies #1963
+
 * Fri Jul 26 2013 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.1-1.ns6
 - Implement FHS 2.3 compliance #2065
 - Various fixes #1963 
