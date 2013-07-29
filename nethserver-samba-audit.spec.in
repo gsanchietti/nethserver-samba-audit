@@ -3,10 +3,8 @@ Name: nethserver-samba-audit
 Version: @@VERSION@@
 Release: @@RELEASE@@
 License: GPLv2
-Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
-Packager: Giacomo Sanchietti <giacomo@nethesis.it>
-BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
+URL: %{url_prefix}/%{name} 
 BuildArch: noarch 
 Requires: nethserver-ibays, nethserver-httpd, nethserver-mysql, nethserver-samba
 Requires: php-mysql
@@ -16,13 +14,11 @@ AutoReq: no
 %description
 Enable audit on samba shared and browse log using a simple web interface.
 
-
 %prep
 %setup
 
 %build
 perl createlinks
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -49,7 +45,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Mon Jul 29 2013 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.2-1.ns6
-- Wxecute nethserver-samba-audit-conf action before expand-template #1963
+- Execute nethserver-samba-audit-conf action before expand-template #1963
 - Add nethserver-mysql and nethserver-samba dependencies #1963
 
 * Fri Jul 26 2013 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.1-1.ns6
