@@ -8,7 +8,8 @@ Source: %{name}-%{version}.tar.gz
 Packager: Giacomo Sanchietti <giacomo@nethesis.it>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch 
-Requires: nethserver-ibays, nethserver-httpd, php-mysql
+Requires: nethserver-ibays, nethserver-httpd, nethserver-mysql, nethserver-samba
+Requires: php-mysql
 BuildRequires: nethserver-devtools
 AutoReq: no
 
