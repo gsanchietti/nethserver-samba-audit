@@ -50,7 +50,20 @@ while (<FILE>) {
 	if ($_ =~ /smbauditlog/ )
                 {
                 ($TAG,$DATE,$USER,$IP,$SHAREPATH,$USER2,$OPERATION,$RESULT,$MODE,$ARG) = split (/\|/, $_);
-                $ARG =~ s/\n//g unless !defined($ARG);
+                # delete records lack of one field
+                if (!defined($ARG)) {
+                    $ARG = $MODE;
+                } else {
+                    $ARG =~ s/\n//g;
+                    # handle open in read/write
+                    if ($MODE eq 'r' || $MODE eq 'w') {
+                        $ARG = $MODE."|".$ARG;
+                    }
+                }
+                if ($OPERATION eq 'rename') {
+                    my $tmp = (split (/\|/, $_))[-1];
+                    $ARG .= "|".$tmp;
+                }
 		$sth = $dbh->prepare("INSERT INTO audit SET `when`=?,share=?,ip=?,user=?,op=?,result=?,arg=?");
 		$sth->execute($DATE,$SHAREPATH,$IP,$USER,$OPERATION,$RESULT,$ARG) or die "Cannot execute sth: $DBI::errstr";
                 }
