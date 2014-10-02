@@ -62,7 +62,8 @@ while (<FILE>) {
                 }
                 if ($OPERATION eq 'rename') {
                     my $tmp = (split (/\|/, $_))[-1];
-                    $ARG .= "|".$tmp;
+                    chomp $tmp;
+                    $ARG = "$MODE|".$tmp;
                 }
 		$sth = $dbh->prepare("INSERT INTO audit SET `when`=?,share=?,ip=?,user=?,op=?,result=?,arg=?");
 		$sth->execute($DATE,$SHAREPATH,$IP,$USER,$OPERATION,$RESULT,$ARG) or die "Cannot execute sth: $DBI::errstr";
