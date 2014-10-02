@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 %config /var/log/smbaudit.log
 
 %changelog
+* Thu Oct 02 2014 Davide Principi <davide.principi@nethesis.it> - 1.0.4-1.ns6
+- Smbaudit doesn't show the name of the file for some operations - Bug #2870 [NethServer]
+
 * Mon Jul 29 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.3-1.ns6
 - Relocated scripts under /usr/bin/ - Feature #1963 [NethServer]
 
