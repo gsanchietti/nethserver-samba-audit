@@ -1,7 +1,7 @@
 Summary: Enable audit on samba shared 
 Name: nethserver-samba-audit
-Version: @@VERSION@@
-Release: @@RELEASE@@
+Version: 1.0.4
+Release: 1
 License: GPLv2
 Source: %{name}-%{version}.tar.gz
 URL: %{url_prefix}/%{name} 
