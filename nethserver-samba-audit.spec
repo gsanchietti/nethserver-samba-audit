@@ -1,6 +1,6 @@
 Summary: Enable audit on samba shared 
 Name: nethserver-samba-audit
-Version: 1.0.4
+Version: 1.0.5
 Release: 1%{?dist}
 License: GPLv2
 Source: %{name}-%{version}.tar.gz
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 %config /var/log/smbaudit.log
 
 %changelog
+* Tue Sep 29 2015 Davide Principi <davide.principi@nethesis.it> - 1.0.5-1
+- Make Italian language pack optional - Enhancement #3265 [NethServer]
+
 * Thu Oct 02 2014 Davide Principi <davide.principi@nethesis.it> - 1.0.4-1.ns6
 - Smbaudit doesn't show the name of the file for some operations - Bug #2870 [NethServer]
 
