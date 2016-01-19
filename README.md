@@ -39,8 +39,7 @@ HOW IT WORKS
 2) Configure rsyslog to store audit lines in a separate file: copy smbaudit-rsyslog.conf in /etc/rsyslog.d
 3) Create the db: from the sql dir, execute mysql < smbaudit.sql
 4) Enable the web interface: copy smbaudit.conf in /etc/httpd/conf.d
-5) Copy all perl script into /usr/local/bin/ directory
-6) Make smbauditrotate.pl setuid
+5) Copy sudeors config into /etc/sudoers.d directory
 7) Create a cron or logrotate job to invoke the parser on files
 
 QUESTIONS
