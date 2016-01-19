@@ -9,7 +9,6 @@ BuildArch: noarch
 Requires: nethserver-ibays, nethserver-httpd, nethserver-mysql, nethserver-samba
 Requires: php-mysql
 BuildRequires: nethserver-devtools
-AutoReq: no
 
 %description
 Enable audit on samba shared and browse log using a simple web interface.
@@ -21,15 +20,13 @@ Enable audit on samba shared and browse log using a simple web interface.
 perl createlinks
 
 %install
-rm -rf $RPM_BUILD_ROOT
-(cd root ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
-/sbin/e-smith/genfilelist \
+rm -rf %{buildroot}
+(cd root; find . -depth -print | cpio -dump %{buildroot})
+%{genfilelist} \
     --file /usr/bin/smbauditrotate.pl 'attr(4755,root,root)' \
     --file /var/log/smbaudit.log 'attr(0640,root,root)' \
-    $RPM_BUILD_ROOT > %{name}-%{version}-filelist
+%{buildroot} > %{name}-%{version}-filelist
 
-%clean 
-rm -rf $RPM_BUILD_ROOT
 
 %pre
 
@@ -42,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}-%{version}-filelist
 %defattr(-,root,root)
 %config /var/log/smbaudit.log
+%doc COPYING
+%dir %{_nseventsdir}/%{name}-update
+
 
 %changelog
 * Tue Sep 29 2015 Davide Principi <davide.principi@nethesis.it> - 1.0.5-1
