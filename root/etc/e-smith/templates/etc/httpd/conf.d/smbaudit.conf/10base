@@ -8,11 +8,8 @@ Alias /$alias  /usr/share/smbaudit
 <Directory /usr/share/smbaudit>
     AllowOverride none
     Options +Indexes
-    order deny,allow
-    deny from all
-    allow from all
     AddType application/x-httpd-php .php .php3
-    Allow from $localAccess
+    Require ip $localAccess
 </Directory>
 ";
 }
