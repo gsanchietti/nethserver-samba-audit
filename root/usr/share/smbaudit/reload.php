@@ -1,5 +1,5 @@
 <?php 
-system ("/usr/bin/smbauditrotate.pl");
+system ("sudo /usr/sbin/logrotate -f /etc/logrotate.d/smbaudit");
 header("Location: index.php");
 ?>
 
