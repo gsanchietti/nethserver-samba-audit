@@ -47,17 +47,17 @@ html, body {
 }
 
 body {
-font: 12px Verdana, Arial, sans-serif; 
-background: #fff url(../images/backi.jpg) repeat-x top; 
-color: #111;
+font: 12px sans-serif; 
+color: #222;
 margin: 0;
 padding: 0;
 line-height: 1.5em;
 padding-left: 10px;
+background-color: #fff;
 }
 
 .login {
-color: #034699;
+color: #2E2E2E;
 padding: 5px;
 line-height: 1.5em;
 padding-left: 10px;
@@ -83,13 +83,10 @@ width: 770px;
 }
 
 #header {
-background: transparent;
-height: 60px;
-background-repeat: no-repeat;
-background-position: top left;
+height: 50px;
 }
 #header h1 {
-color: #fff;
+color: #222;
 font-size: 200%;
 padding-top: 20px;
 margin: 0;
@@ -103,7 +100,7 @@ margin: 0;
 font-weight: 100;
 }
 h1 {
-color: #034498;
+color: #2E2E2E;
 font-size: 150%;
 margin: 0;
 font-weight: bold;
@@ -183,7 +180,7 @@ th {
 	padding: 2px;
 	border: 1px solid #fff;
 	text-align: center;
-	background:#034699;
+	background:#2E2E2E;
 	color: #fff;
 }
 th a {
@@ -282,7 +279,7 @@ fieldset {
 }
 fieldset legend {
 	background:#fff;
-	color: #e32;
+	color: #2E2E2E;
 	font-size: 140%;
 	font-weight: bold;
 }
