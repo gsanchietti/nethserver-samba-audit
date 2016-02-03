@@ -31,10 +31,12 @@ my $event = "nethserver-samba-audit-update";
 event_actions($event, qw(
       initialize-default-databases 00
       nethserver-samba-audit-conf 02
+      nethserver-httpd-admin-asyncreload 99
 ));
 
 event_templates($event, qw(
       /etc/httpd/conf.d/smbaudit.conf
+      /etc/httpd/admin-conf.d/smbaudit.conf
       /etc/samba/smb.conf
 ));
 

@@ -36,10 +36,9 @@ class SambaAudit extends \Nethgui\Module\AbstractModule implements \NethServer\M
     public function getInfo() 
     {
          $alias = $this->getPlatform()->getDatabase('configuration')->getProp('smb','AuditAlias');
-         $hostname = $this->getPlatform()->getDatabase('configuration')->getType('SystemName');
-         $domain = $this->getPlatform()->getDatabase('configuration')->getType('DomainName');
+         $host = explode(':',$_SERVER['HTTP_HOST']);
          return array(
-            'url' => "http://$hostname.$domain/$alias"
+            'url' => "https://".$host[0].":980/$alias/"
          );
     } 
 }

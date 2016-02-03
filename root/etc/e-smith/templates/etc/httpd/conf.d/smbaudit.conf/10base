@@ -9,7 +9,7 @@ Alias /$alias  /usr/share/smbaudit
     AllowOverride none
     Options +Indexes
     AddType application/x-httpd-php .php .php3
-    Require ip $localAccess
+    Require local
 </Directory>
 ";
 }

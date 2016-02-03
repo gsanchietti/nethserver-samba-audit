@@ -1,0 +1,6 @@
+{
+    my $alias = $smb{'AuditAlias'} || return '';
+
+    $OUT .= "ProxyPass /$alias http://localhost/$alias\n";
+    $OUT .= "ProxyPassReverse /$alias http://localhost/$alias\n";
+}
