@@ -17,7 +17,7 @@
   $actions['d']="fchmod_acl";
 
 
-  $select_actions = array('OPEN_FILE','EDIT_FILE','DELETE_FILE','CREATE_DELETE_DIR','RENAME');
+  $select_actions = array('OPEN_FILE','DELETE_FILE','CREATE_DELETE_DIR','RENAME');
 
 
 ?>
