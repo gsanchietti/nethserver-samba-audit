@@ -23,7 +23,6 @@ perl createlinks
 rm -rf %{buildroot}
 (cd root; find . -depth -print | cpio -dump %{buildroot})
 %{genfilelist} \
-    --file /usr/bin/smbauditrotate.pl 'attr(4755,root,root)' \
     --file /var/log/smbaudit.log 'attr(0640,root,root)' \
 %{buildroot} > %{name}-%{version}-filelist
 
