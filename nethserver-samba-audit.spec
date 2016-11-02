@@ -1,6 +1,6 @@
 Summary: Enable audit on samba shared 
 Name: nethserver-samba-audit
-Version: 1.1.0
+Version: 1.1.1
 Release: 1%{?dist}
 License: GPLv2
 Source: %{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Nov 02 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.1-1
+- SambAudit: "Reload" button doesn't work - NethServer/dev#5139
+
 * Thu Jul 07 2016 Stefano Fancello <stefano.fancello@nethesis.it> - 1.1.0-1
 - First NS7 release
 
