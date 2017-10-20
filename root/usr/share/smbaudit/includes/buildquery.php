@@ -11,7 +11,7 @@
 
  if($sharenum) {
   		
-        $qtxt.=" and share='$sharenum'";
+        $qtxt.=" and share='".urldecode($sharenum)."'";
  }
 
   //Map action selection to a set of operations
@@ -42,7 +42,7 @@
  }
 
  if(isset($message) and $message != "")
-        $qtxt.=" and arg like('%".$message."%')";
+        $qtxt.=" and arg like('%".urldecode($message)."%')";
 
  if(isset($from) and $from==1)
  {
