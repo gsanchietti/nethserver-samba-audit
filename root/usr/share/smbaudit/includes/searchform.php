@@ -10,7 +10,7 @@
 </tr>
 <tr>
         <td><label><?php echo $my_text['Share'];?>:</label></td>
-        <td><input type='text' name="sharenum" value="<?php echo $sharenum ?> "></td>
+        <td><input type='text' name="sharenum" value="<?php echo urldecode($sharenum) ?> "></td>
 <td><label><?php echo $my_text['Action']; ;?>:</label></td>
 <td><select name='type_act'>
 <option value='0' <?php echo ($type_act==0?'selected':'')?>><?php echo $my_text['All_f'];?></option>
@@ -31,7 +31,7 @@
 </tr>
 <tr>
         <td><label><?php echo $my_text['Path'];?>:</label></td>
-        <td><input type=text name="message" style='width: 250px' value="<?php echo $message;?>"> </td><!-- " -->
+        <td><input type=text name="message" style='width: 250px' value="<?php echo urldecode($message);?>"> </td><!-- " -->
         <td><label><?php echo $my_text['Show'];?></label></td>
         <td><select name="num">
 <?php
