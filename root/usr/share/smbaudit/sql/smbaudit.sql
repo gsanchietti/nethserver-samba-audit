@@ -9,7 +9,10 @@ CREATE TABLE IF NOT EXISTS `audit` (
         `user` VARCHAR(255) COMMENT 'Remote username',
         `op` VARCHAR(255) COMMENT 'Type of operation performed',
         `result` VARCHAR(255) COMMENT 'Operation reulst',
-        `arg` VARCHAR(255) COMMENT 'Argument for operation'
+        `arg` VARCHAR(255) COMMENT 'Argument for operation',
+	KEY `audit_when_IDX` (`when`) USING BTREE,
+  	KEY `audit_share_IDX` (`share`) USING BTREE,
+  	KEY `audit_user_IDX` (`user`) USING BTREE
 ) ENGINE = MYISAM DEFAULT CHARSET=UTF8;
 
 CREATE TABLE IF NOT EXISTS last_update (
