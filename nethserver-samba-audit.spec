@@ -1,6 +1,6 @@
 Summary: Enable audit on samba shared 
 Name: nethserver-samba-audit
-Version: 1.1.3
+Version: 1.1.4
 Release: 1%{?dist}
 License: GPLv2
 Source: %{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jun 07 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.4-1
+- SambaAudit: improve search performance - NethServer/dev#5519
+
 * Fri Oct 20 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.3-1
 - Fix pagination for paths with spaces - nethserver-samba-audit#4
 
