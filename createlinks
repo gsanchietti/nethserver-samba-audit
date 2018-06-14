@@ -61,3 +61,10 @@ event_services($event, qw(
       smb reload
 ));
 
+#
+# migration-import event
+#
+
+$event = "migration-import";
+event_actions($event, 'nethserver-samba-audit-migrate' => 50);
+
