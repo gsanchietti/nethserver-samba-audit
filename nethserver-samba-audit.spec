@@ -1,6 +1,6 @@
 Summary: Enable audit on samba shared 
 Name: nethserver-samba-audit
-Version: 1.1.4
+Version: 1.1.5
 Release: 1%{?dist}
 License: GPLv2
 Source: %{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Jun 19 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.5-1
+- SambaAudit: support SME 8 migration - Bug NethServer/dev#5530
+
 * Thu Jun 07 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.4-1
 - SambaAudit: improve search performance - NethServer/dev#5519
 
