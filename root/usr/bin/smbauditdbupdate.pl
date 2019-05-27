@@ -47,27 +47,27 @@ my $ARG;
 my $op_msg = "";
 open FILE, $LOGFILE or die $!;
 while (<FILE>) {
-	if ($_ =~ /smbauditlog/ )
-                {
-                ($TAG,$DATE,$USER,$IP,$SHAREPATH,$USER2,$OPERATION,$RESULT,$MODE,$ARG) = split (/\|/, $_);
-                # delete records lack of one field
-                if (!defined($ARG)) {
-                    $ARG = $MODE;
-                } else {
-                    $ARG =~ s/\n//g;
-                    # handle open in read/write
-                    if ($MODE eq 'r' || $MODE eq 'w') {
-                        $ARG = $MODE."|".$ARG;
-                    }
-                }
-                if ($OPERATION eq 'rename') {
-                    my $tmp = (split (/\|/, $_))[-1];
-                    chomp $tmp;
-                    $ARG = "$MODE|".$tmp;
-                }
-		$sth = $dbh->prepare("INSERT INTO audit SET `when`=?,share=?,ip=?,user=?,op=?,result=?,arg=?");
-		$sth->execute($DATE,$SHAREPATH,$IP,$USER,$OPERATION,$RESULT,$ARG) or die "Cannot execute sth: $DBI::errstr";
-                }
+    if ($_ =~ /smbauditlog/ ) {
+        ($TAG,$DATE,$USER,$IP,$SHAREPATH,$USER2,$OPERATION,$RESULT,$MODE,$ARG) = split (/\|/, $_);
+        # delete records lacking one field
+        if (!defined($ARG)) {
+            $MODE =~ s/\n//g;
+            $ARG = $MODE;
+        } else {
+            $ARG =~ s/\n//g;
+            # handle open in read/write
+            if ($MODE eq 'r' || $MODE eq 'w') {
+                $ARG = $MODE."|".$ARG;
+            }
+        }
+        if ($OPERATION eq 'rename') {
+            my $tmp = (split (/\|/, $_))[-1];
+            chomp $tmp;
+            $ARG = "$MODE|".$tmp;
+        }
+        $sth = $dbh->prepare("INSERT INTO audit SET `when`=?,share=?,ip=?,user=?,op=?,result=?,arg=?");
+        $sth->execute($DATE,$SHAREPATH,$IP,$USER,$OPERATION,$RESULT,$ARG) or die "Cannot execute sth: $DBI::errstr";
+    }
 }
 
 $sth = $dbh->prepare("TRUNCATE TABLE last_update");
@@ -76,5 +76,3 @@ $sth = $dbh->prepare("INSERT INTO last_update SET lastupdate=now()");
 $sth->execute() or die "Cannot update last_update time: $DBI::errstr";
 
 $dbh->disconnect();
-
-
