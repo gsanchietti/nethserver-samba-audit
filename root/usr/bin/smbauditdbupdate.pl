@@ -49,7 +49,7 @@ open FILE, $LOGFILE or die $!;
 while (<FILE>) {
     if ($_ =~ /smbauditlog/ ) {
         ($TAG,$DATE,$USER,$IP,$SHAREPATH,$USER2,$OPERATION,$RESULT,$MODE,$ARG) = split (/\|/, $_);
-        # delete records lack of one field
+        # delete records lacking one field
         if (!defined($ARG)) {
             $MODE =~ s/\n//g;
             $ARG = $MODE;
