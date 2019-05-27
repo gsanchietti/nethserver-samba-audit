@@ -52,6 +52,7 @@ while (<FILE>) {
                 ($TAG,$DATE,$USER,$IP,$SHAREPATH,$USER2,$OPERATION,$RESULT,$MODE,$ARG) = split (/\|/, $_);
                 # delete records lack of one field
                 if (!defined($ARG)) {
+                    $MODE =~ s/\n//g;
                     $ARG = $MODE;
                 } else {
                     $ARG =~ s/\n//g;
