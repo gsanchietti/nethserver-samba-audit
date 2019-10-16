@@ -25,11 +25,15 @@ use warnings;
 use strict;
 
 use NethServer::Password;
+use esmith::ConfigDB;
 
 my $username = "smbd";
 my $password = NethServer::Password::store('smbd');
 my $dsn = "dbi:mysql:smbaudit:localhost";
 my $dbh = DBI->connect($dsn,$username,$password) or die "Cannot connect to database: $DBI::errstr";
+
+my $db = esmith::ConfigDB->open_ro();
+my $log_read = $db->get_prop('smb','AuditLogRead') || 'disabled';
 
 my $LOGFILE='/var/log/smbaudit.log';
 my $TAG;
@@ -62,6 +66,9 @@ while (<FILE>) {
             $ARG =~ s/\n//g;
             # skip meaningless lines
             next if ($ARG eq '.');
+
+            # skip read lines if AuditLogRead is disabled
+            next if ($MODE eq 'r' && $log_read eq 'disabled');
 
             # handle open in read/write
             if ($MODE eq 'r' || $MODE eq 'w') {
