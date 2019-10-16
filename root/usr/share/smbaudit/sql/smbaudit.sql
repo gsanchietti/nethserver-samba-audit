@@ -2,7 +2,7 @@ CREATE database IF NOT EXISTS smbaudit;
 USE smbaudit;
 
 CREATE TABLE IF NOT EXISTS `audit` (
-        `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
         `when` TIMESTAMP DEFAULT NOW() COMMENT 'Time the operation occurred',
         `share` VARCHAR(255) COMMENT 'Share/service name',
         `ip` VARCHAR(255) COMMENT 'IP address of connecting user',
