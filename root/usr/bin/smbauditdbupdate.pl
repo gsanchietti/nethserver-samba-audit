@@ -44,10 +44,14 @@ my $FILEPATH;
 my $sth;
 my $MODE;
 my $ARG;
-my $op_msg = "";
+my $last = "";
 open FILE, $LOGFILE or die $!;
 while (<FILE>) {
     if ($_ =~ /smbauditlog/ ) {
+        # skip duplicate lines
+        next if ($last eq $_);
+        $last = $_;
+
         ($TAG,$DATE,$USER,$IP,$SHAREPATH,$USER2,$OPERATION,$RESULT,$MODE,$ARG) = split (/\|/, $_);
         # delete records lacking one field
         if (!defined($ARG)) {
@@ -55,6 +59,9 @@ while (<FILE>) {
             $ARG = $MODE;
         } else {
             $ARG =~ s/\n//g;
+            # skip meaningless lines
+            next if ($ARG eq '.');
+
             # handle open in read/write
             if ($MODE eq 'r' || $MODE eq 'w') {
                 $ARG = $MODE."|".$ARG;
