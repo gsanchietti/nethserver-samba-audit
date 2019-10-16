@@ -18,9 +18,3 @@ CREATE TABLE IF NOT EXISTS `audit` (
 CREATE TABLE IF NOT EXISTS last_update (
 	lastupdate TIMESTAMP
 ) ENGINE = MYISAM DEFAULT CHARSET=UTF8;
-
-use mysql;
-GRANT ALL ON smbaudit.* TO 'smbd'@'localhost';
-REPLACE INTO user (host, user, password)     VALUES (         'localhost',         'smbd',         password('smbpass')     );
-
-flush privileges;
