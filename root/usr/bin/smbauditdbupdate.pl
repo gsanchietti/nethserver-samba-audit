@@ -24,9 +24,10 @@ use DBI;
 use warnings;
 use strict;
 
+use NethServer::Password;
+
 my $username = "smbd";
-my $password = "smbpass";
-$password =~ s/\n//g;
+my $password = NethServer::Password::store('smbd');
 my $dsn = "dbi:mysql:smbaudit:localhost";
 my $dbh = DBI->connect($dsn,$username,$password) or die "Cannot connect to database: $DBI::errstr";
 
