@@ -49,15 +49,23 @@ my $FILEPATH;
 my $sth;
 my $MODE;
 my $ARG;
-my $last = "";
+my $last_line = "";
+my $last_parsed_line = "";
 open FILE, $LOGFILE or die $!;
 while (<FILE>) {
     if ($_ =~ /smbauditlog/ ) {
         # skip duplicate lines
-        next if ($last eq $_);
-        $last = $_;
+        next if ($last_line eq $_);
+        $last_line = $_;
 
         ($TAG,$DATE,$USER,$IP,$SHAREPATH,$USER2,$OPERATION,$RESULT,$MODE,$ARG) = split (/\|/, $_);
+
+        # exclude equal parsed line which differs only by the date (eg. long writes to big files)
+        my $tmp_arg = $ARG || '';
+        my $parsed = "$USER,$IP,$SHAREPATH,$USER2,$OPERATION,$RESULT,$MODE,$tmp_arg";
+        next if ($parsed eq $last_parsed_line);
+        $last_parsed_line = $parsed;
+
         # delete records lacking one field
         if (!defined($ARG)) {
             $MODE =~ s/\n//g;
