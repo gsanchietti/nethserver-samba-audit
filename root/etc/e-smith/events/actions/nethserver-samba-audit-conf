@@ -1,29 +1,40 @@
-#!/usr/bin/perl -w
+#!/bin/bash
+#
+# Copyright (C) 2019 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
 
-package esmith;
+# Generate http alias
+alias=$(/sbin/e-smith/config getprop smb AuditAlias)
 
-use strict;
-use Errno;
-use esmith::templates;
-use esmith::util;
-use esmith::AccountsDB;
-use esmith::ConfigDB;
+if [ -z "$alias" ]; then
+    alias=$(perl -e "use esmith::util; print esmith::util::genRandomHash()");
+    /sbin/e-smith/config setprop smb AuditAlias "$alias"
+fi
 
-my $confdb = esmith::ConfigDB->open;
-my $smb = $confdb->get('smb');
-my $alias = $smb->prop('AuditAlias') || "";
+# Initialize grants mysql smbaudit database (fix also old installations with hardcoded password)
+password=`perl -e "use NethServer::Password; print NethServer::Password::store('smbd');"`
+/usr/bin/mysql --defaults-file=/root/.my.cnf -e "CREATE DATABASE IF NOT EXISTS smbaudit;"
+/usr/bin/mysql --defaults-file=/root/.my.cnf -e "grant all on smbaudit.* to 'smbd'@'localhost' identified by '$password';"
+/usr/bin/mysql --defaults-file=/root/.my.cnf -e "FLUSH PRIVILEGES"
 
-# initialize alias if needed
-if ($alias eq "") {
-    $alias = esmith::util::genRandomHash();
-    $confdb->set_prop('smb','AuditAlias',$alias);
-}
-
-
-# sql symlink
-symlink "/usr/share/smbaudit/sql/smbaudit.sql",
-    "/etc/e-smith/sql/init/10smbaudit.sql";
-
-system ("/sbin/service mysql.init start"); 
-
-exit (0);
+# Create database
+res=`/usr/bin/mysql --defaults-file=/root/.my.cnf -e "select count(*) from information_schema.tables where table_type = 'BASE TABLE' and table_schema = 'smbaudit'" | tail -n1`;
+if [[ $res == '0' ]]; then
+    /usr/bin/mysql --defaults-file=/root/.my.cnf < /usr/share/smbaudit/sql/smbaudit.sql
+fi

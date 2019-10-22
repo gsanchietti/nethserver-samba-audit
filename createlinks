@@ -37,6 +37,7 @@ event_templates($event, qw(
       /etc/httpd/conf.d/smbaudit.conf
       /etc/httpd/admin-conf.d/smbaudit.conf
       /etc/samba/smb.conf
+      /usr/share/smbaudit/config/config.php
 ));
 
 event_services($event, qw(

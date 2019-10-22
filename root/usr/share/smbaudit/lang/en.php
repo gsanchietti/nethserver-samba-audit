@@ -43,7 +43,7 @@
   $my_text['Pages']="Pages";
   $my_text['Delete log'] = "Delete log";
   $my_text['OPEN_DIR'] = 'Open directory';
-  $my_text['OPEN_FILE'] = 'Read file';
+  $my_text['OPEN_FILE'] = 'Read & write file';
   $my_text['EDIT_FILE'] = 'Edit file';
   $my_text['DELETE_FILE'] = 'Delete file';
   $my_text['CREATE_DELETE_DIR'] = 'Create/Delete directory';

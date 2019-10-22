@@ -24,11 +24,16 @@ use DBI;
 use warnings;
 use strict;
 
+use NethServer::Password;
+use esmith::ConfigDB;
+
 my $username = "smbd";
-my $password = "smbpass";
-$password =~ s/\n//g;
+my $password = NethServer::Password::store('smbd');
 my $dsn = "dbi:mysql:smbaudit:localhost";
 my $dbh = DBI->connect($dsn,$username,$password) or die "Cannot connect to database: $DBI::errstr";
+
+my $db = esmith::ConfigDB->open_ro();
+my $log_read = $db->get_prop('smb','AuditLogRead') || 'disabled';
 
 my $LOGFILE='/var/log/smbaudit.log';
 my $TAG;
@@ -44,17 +49,35 @@ my $FILEPATH;
 my $sth;
 my $MODE;
 my $ARG;
-my $op_msg = "";
+my $last_line = "";
+my $last_parsed_line = "";
 open FILE, $LOGFILE or die $!;
 while (<FILE>) {
     if ($_ =~ /smbauditlog/ ) {
+        # skip duplicate lines
+        next if ($last_line eq $_);
+        $last_line = $_;
+
         ($TAG,$DATE,$USER,$IP,$SHAREPATH,$USER2,$OPERATION,$RESULT,$MODE,$ARG) = split (/\|/, $_);
+
+        # exclude equal parsed line which differs only by the date (eg. long writes to big files)
+        my $tmp_arg = $ARG || '';
+        my $parsed = "$USER,$IP,$SHAREPATH,$USER2,$OPERATION,$RESULT,$MODE,$tmp_arg";
+        next if ($parsed eq $last_parsed_line);
+        $last_parsed_line = $parsed;
+
         # delete records lacking one field
         if (!defined($ARG)) {
             $MODE =~ s/\n//g;
             $ARG = $MODE;
         } else {
             $ARG =~ s/\n//g;
+            # skip meaningless lines
+            next if ($ARG eq '.');
+
+            # skip read lines if AuditLogRead is disabled
+            next if ($MODE eq 'r' && $log_read eq 'disabled');
+
             # handle open in read/write
             if ($MODE eq 'r' || $MODE eq 'w') {
                 $ARG = $MODE."|".$ARG;

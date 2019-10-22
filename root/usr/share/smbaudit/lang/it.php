@@ -47,7 +47,7 @@
   $my_text['Pages']="Pagine";
   $my_text['Delete log'] = "Elimina log";
   $my_text['OPEN_DIR'] = 'Apertura directory';
-  $my_text['OPEN_FILE'] = 'Lettura file';
+  $my_text['OPEN_FILE'] = 'Lettura e scrittura file';
   $my_text['EDIT_FILE'] = 'Modifica file';
   $my_text['DELETE_FILE'] = 'Eliminazione file';
   $my_text['CREATE_DELETE_DIR'] = 'Creazione/Eliminazione directory';

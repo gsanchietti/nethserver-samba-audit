@@ -11,6 +11,11 @@ Alias /$alias  /usr/share/smbaudit
     AddType application/x-httpd-php .php .php3
     Require local
 </Directory>
+
+<Directory /usr/share/smbaudit/sql/>
+    AllowOverride none
+    Require all denied
+</Directory>
 ";
 }
 
